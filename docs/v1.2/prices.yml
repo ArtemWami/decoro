@@ -1,0 +1,154 @@
+paths:
+  /api/v1.2/prices:
+    post:
+      tags:
+        - v1.2 prices
+      summary: Prices
+      description: Create price.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                finishTypeId:
+                  type: string
+                  format: uuid
+                contractorPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                lowerLevelUnitsPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                lowerPenthousesPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                upperPenthousesPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                townhousesPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                modelIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                unitTypes:
+                  type: array
+                  items:
+                    type: string
+                    enum: ["LOWER_LEVEL_UNITS", "LOWER_PENTHOUSES", "UPPER_PENTHOUSES", "TOWNHOUSES"]
+              required:
+                - finishTypeId
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+  /api/v1.2/prices/{priceId}:
+    patch:
+      tags:
+        - v1.2 prices
+      summary: Prices
+      description: Update price.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: priceId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the price
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contractorPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                lowerLevelUnitsPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                lowerPenthousesPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                upperPenthousesPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                townhousesPrice:
+                  type: number
+                  minimum: 0
+                  nullable: true
+                  example: 1.01
+                modelIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                unitTypes:
+                  type: array
+                  items:
+                    type: string
+                    enum: [ "LOWER_LEVEL_UNITS", "LOWER_PENTHOUSES", "UPPER_PENTHOUSES", "TOWNHOUSES" ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+    delete:
+      tags:
+        - v1.2 prices
+      summary: Prices
+      description: Delete price.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: priceId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the price
+      responses:
+        204:
+          description: No Content

@@ -1,0 +1,13 @@
+components:
+  schemas:
+    EmailTemplateImage:
+      allOf:
+        - $ref: '#/components/schemas/Image'
+        - type: object
+          properties:
+            emailTemplateId:
+              type: string
+              format: uuid
+            type:
+              type: string
+              enum: ["EMAIL_TEMPLATE_IMG"]

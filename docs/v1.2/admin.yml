@@ -1,0 +1,82 @@
+paths:
+  /api/v1.2/admin:
+    patch:
+      tags:
+        - v1.2 admin
+      summary: Admin
+      description: Update admin.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: Den
+                lastName:
+                  type: string
+                  example: Romanov
+                email:
+                  type: string
+                  example: test@gmail.com
+                phone:
+                  type: string
+                  example: 0999999999
+                jobTitle:
+                  type: string
+                  example: developer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/admin/password:
+    patch:
+      tags:
+        - v1.2 admin
+      summary: Admin
+      description: Set new password admin.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                  example: password
+                newPassword:
+                  type: string
+                  example: newPassword
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true

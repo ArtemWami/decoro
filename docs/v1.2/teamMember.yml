@@ -1,0 +1,213 @@
+paths:
+  /api/v1.2/teamMember:
+    post:
+      tags:
+        - v1.2 teamMember
+      summary: TeamMember
+      description: Create TeamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                firstName:
+                  type: string
+                  example: Den
+                lastName:
+                  type: string
+                  example: Romanov
+                phone,:
+                  type: string
+                  example: 0999999999
+                languageCode:
+                  type: string
+                  example: EN
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    get:
+      tags:
+        - v1.2 teamMember
+      summary: TeamMembers
+      description: Get TeamMembers.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/teamMember/{teamMemberId}:
+    get:
+      tags:
+        - v1.2 teamMember
+      summary: TeamMember
+      description: Get TeamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: teamMemberId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the teamMember
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    patch:
+      tags:
+        - v1.2 teamMember
+      summary: TeamMember
+      description: Update TeamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: teamMemberId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                emailVerified:
+                  type: boolean
+                  example: false
+                firstName:
+                  type: string
+                  example: Den
+                lastName:
+                  type: string
+                  example: Romanov
+                role:
+                  type: string
+                  example: room
+                phone,:
+                  type: string
+                  example: 0999999999
+                languageCode:
+                  type: string
+                  example: EN
+                lastLoging:
+                  type: string
+                  example: 2021-09-29T09:47:48.298Z
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - v1.2 teamMember
+      summary: TeamMember
+      description: Remove TeamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: teamMemberId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the user
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1.2/teamMember/{teamMemberId}/set/admin:
+    post:
+      tags:
+        - v1.2 teamMember
+      summary: TeamMember
+      description: Set TeamMember as Admin.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: teamMemberId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the user
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

@@ -1,0 +1,270 @@
+paths:
+  /api/v1.2/model:
+    post:
+      tags:
+        - v1.2 model
+      summary: Model
+      description: Create Model.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My model
+                bedrooms:
+                  type: number
+                  nullable: true
+                  example: 4
+                den:
+                  type: boolean
+                  default: false
+                bathrooms:
+                  type: number
+                  nullable: true
+                  example: 2
+                interiorSqFt:
+                  type: number
+                  example: 50
+                exteriorSqFt:
+                  type: number
+                  example: 50
+                buildingId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+  /api/v1.2/model/{modelId}:
+    get:
+      tags:
+        - v1.2 model
+      summary: Model
+      description: Get Model.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Model
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Model'
+                - type: object
+                  properties:
+                    rooms:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Room'
+    patch:
+      tags:
+        - v1.2 model
+      summary: Model
+      description: Update Model.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Model
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My model 2
+                bedrooms:
+                  type: number
+                  nullable: true
+                  example: 4
+                den:
+                  type: boolean
+                  default: false
+                bathrooms:
+                  type: number
+                  nullable: true
+                  example: 2
+                interiorSqFt:
+                  type: number
+                  example: 50
+                exteriorSqFt:
+                  type: number
+                  example: 50
+                buildingId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+    delete:
+      tags:
+        - v1.2 model
+      summary: Model
+      description: Remove Model.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Model
+      responses:
+        200:
+          description: OK
+  /api/v1.2/model/{modelId}/room:
+    patch:
+      tags:
+        - v1.2 model
+      summary: Update model rooms
+      description: Update model rooms by ids.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Model
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roomIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+              required:
+                - roomIds
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Model'
+                  - type: object
+                    properties:
+                      rooms:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Room'
+  /api/v1.2/model/{modelId}/images:
+    post:
+      tags:
+        - v1.2 model images
+      summary: Model
+      description: Model.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Model
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                type:
+                  type: string
+                  enum: ["FLOOR_PLANS", "PHOTOS_RENDERS"]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelImage"
+  /api/v1.2/model/{modelId}/images/{imageId}:
+    delete:
+      tags:
+        - v1.2 model images
+      summary: Model
+      description: Model.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Model
+        - in: path
+          name: imageId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Image
+      responses:
+        204:
+          description: No Content

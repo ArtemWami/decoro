@@ -1,0 +1,26 @@
+paths:
+  /api/v1.0/identity:
+    get:
+      tags:
+        - v1.0 identity
+      summary: Identity
+      description: Identity.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  api:
+                    type: string
+                    enum: ["v1.1", "v1.2", "v1.3", "v1.4", "v1.5"]
+                  data:
+                    type: object

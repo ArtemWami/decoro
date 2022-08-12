@@ -1,0 +1,14 @@
+paths:
+  /api/v1.0/company/branding:
+    get:
+      tags:
+        - v1.0 company
+      summary: Company
+      description: Get company branding.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

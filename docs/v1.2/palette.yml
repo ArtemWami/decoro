@@ -1,0 +1,169 @@
+paths:
+  /api/v1.2/palette:
+    post:
+      tags:
+        - v1.2 palette
+      summary: Palette
+      description: Create Palette.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                name:
+                  type: string
+                  example: paletteName
+                buildingId:
+                  type: string
+                  format: uuid
+                description:
+                  type: string
+                  example: palette description
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    get:
+      tags:
+        - v1.2 palette
+      summary: Palette
+      description: Get Palette.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+        - in: query
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          description: The id for building to return
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/palette/{paletteId}:
+    get:
+      tags:
+        - v1.2 palette
+      summary: Palette
+      description: Get Palette.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: paletteId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the palette
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    patch:
+      tags:
+        - v1.2 palette
+      summary: Palette
+      description: Update Palette.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: paletteId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the palette
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: paletteName
+                description:
+                  type: string
+                  example: new palette description
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - v1.2 palette
+      summary: Palette
+      description: Remove Palette.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: paletteId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the palette
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

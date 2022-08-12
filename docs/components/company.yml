@@ -1,0 +1,31 @@
+components:
+  schemas:
+    Company:
+      type: object
+      properties:
+        companyId:
+          type: string
+          format: uuid
+        companyName:
+          type: string
+        email:
+          type: string
+          format: email
+        address:
+          type: string
+        city:
+          type: string
+        province:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+          enum: ["ACTIVE","INACTIVE","PENDING","SUSPENDED","DRAFT","BLOCKED"]
+      required:
+        - companyId
+        - companyName

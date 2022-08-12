@@ -1,0 +1,23 @@
+components:
+  schemas:
+    Option:
+      type: object
+      properties:
+        optionsId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        buildingId:
+          type: string
+          format: uuid
+        roomId:
+          type: string
+          format: uuid
+    OptionName:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255

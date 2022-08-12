@@ -1,0 +1,115 @@
+paths:
+  /api/v1.2/stripe/subscription:
+    post:
+      tags:
+        - v1.2 stripe
+      summary: Stripe Subscription
+      description: Subscription create.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                paymentMethodId:
+                  type: string
+                  example: pm_1KTTnuFnhV97oRYkjmjxHPr7
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    format: uuid
+  /api/v1.2/stripe/payment/method:
+    post:
+      tags:
+        - v1.2 stripe
+      summary: Stripe Payment Method
+      description: Payment Method create.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  type: string
+                  example: 4242424242424242
+                exp_month:
+                  type: number
+                  example: 2
+                exp_year:
+                  type: number
+                  example: 2023
+                cvc:
+                  type: number
+                  example: 123
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  number:
+                    type: string
+                    example: 4242424242424242
+                  exp_month:
+                    type: number
+                    example: 2
+                  exp_year:
+                    type: number
+                    example: 2023
+                  cvc:
+                    type: number
+                    example: 123
+  /api/v1.2/stripe/card:
+    get:
+      tags:
+        - v1.2 stripe
+      summary: Stripe get card info.
+      description: Stripe get card info.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  brand:
+                    type: string
+                    example: visa
+                  exp_month:
+                    type: number
+                    example: 2
+                  exp_year:
+                    type: number
+                    example: 2023
+                  last4:
+                    type: string
+                    example: 4242

@@ -1,0 +1,19 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  when: manual
+  before_script:
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$SSH_KEY_QA" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+  script:
+    - echo "Deploy to qa server"
+    - echo "Deploy to qa server"
+    - ssh $INSTANCE_USER_QA@$INSTANCE_IP_QA  "/home/ubuntu/decoro/deploy.sh"
+  only:
+    - cicd

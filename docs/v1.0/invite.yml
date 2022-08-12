@@ -1,0 +1,69 @@
+paths:
+  /api/v1.0/invitation/verify:
+    post:
+      tags:
+        - v1.0 invite
+      summary: Invite Verification
+      description: Verification Invite.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audience:
+                  type: string
+                  enum: ["client", "admin"]
+                firstName:
+                  type: string
+                  example: Name
+                lastName:
+                  type: string
+                  example: LastName
+                invitationKey:
+                  type: string
+                  example: af6db3f04c3611ec91a31fec58e856aa67e9bce8ea77456bbdc87c9cf8371d7b
+                password:
+                  type: string
+                  example: SupperPASSWORD
+              required:
+                - audience
+                - invitationKey
+                - firstName
+                - lastName
+                - password
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1.0/invitation/info:
+    get:
+      tags:
+        - v1.0 invite
+      summary: Invite Info
+      description: Invite Info.
+      parameters:
+        - in: query
+          name: invitationKey
+          schema:
+            type: string
+            example: af6db3f04c3611ec91a31fec58e856aa67e9bce8ea77456bbdc87c9cf8371d7b
+          required: true
+          description: Invitation key
+        - in: query
+          name: audience
+          schema:
+            type: string
+            enum: ["client", "admin"]
+          required: true
+          description: Application audience
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

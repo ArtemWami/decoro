@@ -1,0 +1,21 @@
+components:
+  schemas:
+    Owner:
+      type: object
+      properties:
+        firstName:
+          type: string
+          maxLength: 255
+          example: Den
+        lastName:
+          type: string
+          maxLength: 255
+          example: Romanov
+        email:
+          type: string
+          maxLength: 255
+          example: test@gmail.com
+        phone:
+          type: string
+          maxLength: 255
+          example: 0999999999

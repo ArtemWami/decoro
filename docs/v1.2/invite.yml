@@ -1,0 +1,90 @@
+paths:
+  /api/v1.2/invitation/teamMember:
+    post:
+      tags:
+        - v1.2 invite teamMember
+      summary: Invite teamMember
+      description: Create Invite teamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                emails:
+                  type: array
+                  example: [ gigifi9235@wwdee.com ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1.2/invitation/teamMember/{userId}:
+    get:
+      tags:
+        - v1.2 invite teamMember
+      summary: Invite teamMember
+      description: Get Invite teamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    delete:
+      tags:
+        - v1.2 invite teamMember
+      summary: Invite teamMember
+      description: Delete Invite teamMember.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  postgres-11:
+    image: postgres:13.4-alpine
+    container_name: postgres_decor
+    restart: always
+    environment:
+      POSTGRES_USER: room
+      POSTGRES_DB: decor
+      POSTGRES_PASSWORD: password
+    ports:
+      - "54322:5432"

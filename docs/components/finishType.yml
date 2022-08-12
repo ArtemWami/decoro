@@ -1,0 +1,30 @@
+components:
+  schemas:
+    FinishType:
+      type: object
+      properties:
+        finishTypeId:
+          type: string
+          format: uuid
+        optionsId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 300
+        companyId:
+          type: string
+          format: uuid
+        subdomainId:
+          type: string
+          format: uuid
+        buildingId:
+          type: string
+          format: uuid
+      required:
+        - finishTypeId
+        - optionsId
+        - name

@@ -1,0 +1,32 @@
+paths:
+  /api/v1.2/room:
+    get:
+      tags:
+        - v1.2 room
+      summary: Room
+      description: Get Rooms.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/Room'
+                        - type: object
+                          properties:
+                            compartments:
+                              type: array
+                              items:
+                                $ref: '#/components/schemas/Room'

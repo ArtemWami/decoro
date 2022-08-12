@@ -1,0 +1,37 @@
+components:
+  schemas:
+    Model:
+      type: object
+      properties:
+        modelId:
+          type: string
+          format: uuid
+        buildingId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        bedrooms:
+          type: integer
+          minimum: 1
+          nullable: true
+        den:
+          type: boolean
+          default: false
+        bathrooms:
+          type: integer
+          minimum: 1
+          nullable: true
+        interiorSqFt:
+          type: integer
+          minimum: 1
+          nullable: true
+        exteriorSqFt:
+          type: integer
+          minimum: 1
+          nullable: true
+      required:
+        - modelId
+        - buildingId
+        - name

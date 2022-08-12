@@ -1,0 +1,35 @@
+components:
+  schemas:
+    Room:
+      type: object
+      properties:
+        roomId:
+          type: string
+          format: uuid
+        prentId:
+          type: string
+          format: uuid
+          nullable: true
+          example: null
+        name:
+          type: string
+          maxLength: 255
+        area:
+          type: string
+          enum: ["Common areas", "Bedrooms", "Basement", "Outdoor"]
+        orderId:
+          type: integer
+          minimum: 0
+      required:
+        - roomId
+        - name
+        - area
+    RoomName:
+      type: object
+      properties:
+        roomId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255

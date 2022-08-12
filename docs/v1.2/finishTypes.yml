@@ -1,0 +1,191 @@
+paths:
+  /api/v1.2/finish-types:
+    post:
+      tags:
+        - v1.2 finish-types
+      summary: Finish types
+      description: Create finish type.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                optionsId:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                  maxLength: 50
+                description:
+                  type: string
+                  maxLength: 300
+                paletteIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+              required:
+                - optionsId
+                - name
+                - paletteIds
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinishType'
+  /api/v1.2/finish-types/{finishTypeId}:
+    patch:
+      tags:
+        - v1.2 finish-types
+      summary: Finish types
+      description: Update finish type.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: finishTypeId
+          schema:
+            type: integer
+          required: true
+          description: ID of the finish type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+                description:
+                  type: string
+                  maxLength: 300
+                paletteIds:
+                  type: array
+                  items:
+                    type: number
+                    minimum: 1
+              required:
+                - name
+                - paletteIds
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinishType'
+    delete:
+      tags:
+        - v1.2 finish-types
+      summary: Finish types
+      description: Delete finish type.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: finishTypeId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the finish type
+      responses:
+        204:
+          description: No Content
+  /api/v1.2/finish-types/{finishTypeId}/images:
+    post:
+      tags:
+        - v1.2 finish-types images
+      summary: Create finish type palette image
+      description: Create finish type palette image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: finishTypeId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the finish type
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                paletteId:
+                  type: number
+                  minimum: 1
+                type:
+                  type: string
+                  enum: ["FINISH_TYPE_PALETTE_IMG"]
+                image:
+                  type: string
+                  format: binary
+              required:
+                - paletteId
+                - type
+                - image
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinishTypePaletteImage'
+  /api/v1.2/finish-types/{finishTypeId}/images/{imageId}:
+    delete:
+      tags:
+        - v1.2 finish-types images
+      summary: Delete finish type palette image
+      description: Delete finish type palette image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: finishTypeId
+          schema:
+            type: integer
+          required: true
+          description: ID of the finish type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                paletteId:
+                  type: number
+                  minimum: 1
+                imageId:
+                  type: number
+                  minimum: 1
+              required:
+                - paletteId
+                - imageId
+      responses:
+        204:
+          description: No Content

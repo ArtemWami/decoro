@@ -1,0 +1,37 @@
+components:
+  schemas:
+    Building:
+      type: object
+      properties:
+        buildingId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+      required:
+        - buildingId
+        - name
+    BuildingWithAddress:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          example: Castle
+        address:
+          type: string
+          maxLength: 255
+          example: Pushkinska 46
+        city:
+          type: string
+          maxLength: 255
+          example: Kharkiv
+        province:
+          type: string
+          maxLength: 255
+          example: Kvebec
+        postalCode:
+          type: string
+          maxLength: 255
+          example: E5TC3G

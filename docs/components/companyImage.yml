@@ -1,0 +1,11 @@
+components:
+  schemas:
+    CompanyImage:
+      allOf:
+        - $ref: '#/components/schemas/Image'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: ["LOGO", "ICON", "PAGE"]
+

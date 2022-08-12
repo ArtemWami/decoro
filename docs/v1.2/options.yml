@@ -1,0 +1,165 @@
+paths:
+  /api/v1.2/options:
+    post:
+      tags:
+        - v1.2 options
+      summary: Options
+      description: Create option.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My option
+                buildingId:
+                  type: string
+                  format: uuid
+                roomId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/Option'
+    get:
+      tags:
+        - v1.2 options
+      summary: Options
+      description: Get option.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          description: The number of building
+        - in: query
+          name: roomId
+          schema:
+            type: string
+            format: uuid
+          description: The number of room
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      allOf:
+                        - $ref: '#/components/schemas/Option'
+  /api/v1.2/options/{optionsId}:
+    get:
+      tags:
+        - v1.2 options
+      summary: Options
+      description: Get option.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: optionsId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the options
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    patch:
+      tags:
+        - v1.2 options
+      summary: Options
+      description: Update option.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: optionsId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the options
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My option
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - v1.2 options
+      summary: Options
+      description: Remove option.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: optionsId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the options
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

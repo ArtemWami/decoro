@@ -1,0 +1,412 @@
+paths:
+  /api/v1.2/buildings:
+    post:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                type:
+                  type: string
+                  enum: ["BUILDING_IMG"]
+                name:
+                  type: string
+                  example: Castle
+                address:
+                  type: string
+                  example: Pushkinska 46
+                city:
+                  type: string
+                  example: Kharkiv
+                province:
+                  type: string
+                  example: Kvebec
+                postalCode:
+                  type: string
+                  example: E5TC3G
+                status:
+                  type: string
+                  example: DRAFT
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+    get:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Search building by name or address
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/buildings/{buildingId}:
+    get:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    patch:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Custle
+                address:
+                  type: string
+                  example: Pushkinska 46
+                city:
+                  type: string
+                  example: Kharkiv
+                province:
+                  type: string
+                  example: Kvebec
+                postalCode:
+                  type: string
+                  example: E5TC3G
+                status:
+                  type: string
+                  example: DRAFT
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the user
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1.2/buildings/{buildingId}/model:
+    get:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the building
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: custle
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Building'
+                  - type: object
+                    properties:
+                      models:
+                        type: array
+                        items:
+                          allOf:
+                            - $ref: '#/components/schemas/Model'
+                            - type: object
+                              properties:
+                                images:
+                                  type: array
+                                  items:
+                                    $ref: '#/components/schemas/Image'
+  /api/v1.2/buildings/{buildingId}/room:
+    get:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: integer
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/Building'
+                      - type: object
+                        properties:
+                          rooms:
+                            type: array
+                            items:
+                              allOf:
+                                - $ref: '#/components/schemas/RoomName'
+                                - type: object
+                                  properties:
+                                    options:
+                                      type: array
+                                      items:
+                                        $ref: '#/components/schemas/OptionName'
+  /api/v1.2/buildings/user/assign:
+    post:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildingId:
+                  type: number
+                  example: 375
+                userIds:
+                  type: array
+                  items:
+                    type: number
+                    example: 445
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    delete:
+      tags:
+        - v1.2 buildings
+      summary: Buildings
+      description: Buildings.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: number
+                  example: 35
+                buildingId:
+                  type: number
+                  example: 50
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/buildings/{buildingId}/images:
+    post:
+      tags:
+        - v1.2 building images
+      summary: Create building image
+      description: Create building image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: integer
+          required: true
+          description: ID of the building
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                type:
+                  type: string
+                  enum: ["BUILDING_IMG"]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BuildingImage"
+  /api/v1.2/buildings/{buildingId}/images/{imageId}:
+    delete:
+      tags:
+        - v1.2 building images
+      summary: Delete building image
+      description: Delete building image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: buildingId
+          schema:
+            type: integer
+          required: true
+          description: ID of the building
+        - in: path
+          name: imageId
+          schema:
+            type: integer
+          required: true
+          description: ID of the image
+      responses:
+        204:
+          description: No Content

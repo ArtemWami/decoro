@@ -1,0 +1,48 @@
+components:
+  schemas:
+    Price:
+      type: object
+      properties:
+        priceId:
+          type: string
+          format: uuid
+        finishTypeId:
+          type: string
+          format: uuid
+        contractorPrice:
+          type: number
+          minimum: 0
+          nullable: true
+          example: 1.01
+        lowerLevelUnitsPrice:
+          type: number
+          minimum: 0
+          nullable: true
+          example: 1.01
+        lowerPenthousesPrice:
+          type: number
+          minimum: 0
+          nullable: true
+          example: 1.01
+        upperPenthousesPrice:
+          type: number
+          minimum: 0
+          nullable: true
+          example: 1.01
+        townhousesPrice:
+          type: number
+          minimum: 0
+          nullable: true
+          example: 1.01
+        companyId:
+          type: string
+          format: uuid
+        subdomainId:
+          type: string
+          format: uuid
+        buildingId:
+          type: string
+          format: uuid
+      required:
+        - priceId
+        - finishTypeId

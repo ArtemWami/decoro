@@ -1,0 +1,29 @@
+paths:
+  /api/v1.0/user/auth:
+    post:
+      tags:
+        - v1.0 auth
+      summary: Auth
+      description: Auth.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audience:
+                  type: string
+                  enum: ["client", "admin"]
+                login:
+                  type: string
+                  example: master@gmail.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

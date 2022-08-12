@@ -1,0 +1,89 @@
+paths:
+  /api/v1.1/invitation/admin/{userId}:
+    post:
+      tags:
+        - v1.1 invite
+      summary: Invite
+      description: Create Invite.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    get:
+      tags:
+        - v1.1 invite
+      summary: Invite
+      description: Get Invite.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    delete:
+      tags:
+        - v1.1 invite
+      summary: Invite
+      description: Delete Invite.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: ID of the admin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true

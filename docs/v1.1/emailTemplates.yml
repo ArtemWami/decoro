@@ -1,0 +1,96 @@
+paths:
+  /api/v1.1/email-templates:
+    get:
+      tags:
+        - v1.1 email-templates
+      summary: Get email templates
+      description: Get email templates.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EmailTemplate'
+  /api/v1.1/email-templates/{emailTemplateId}:
+    get:
+      tags:
+        - v1.1 email-templates
+      summary: Get email template
+      description: Get email template.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: emailTemplateId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the emailTemplate
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplate'
+    patch:
+      tags:
+        - v1.1 email-templates
+      summary: Update email template
+      description: Update email template.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: emailTemplateId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the emailTemplate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                daysDelay:
+                  type: integer
+                  minimum: 1
+                  maximum: 365
+                  nullable: true
+                template:
+                  type: string
+                name:
+                  type: string
+              required:
+                - subject
+                - template
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplate'

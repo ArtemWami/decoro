@@ -1,0 +1,16 @@
+components:
+  schemas:
+    PaletteLocationImage:
+      allOf:
+        - $ref: '#/components/schemas/Image'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: ["COLOR_PALETTE_IMG"]
+            paletteLocationId:
+              type: string
+              format: uuid
+            buildingId:
+              type: string
+              format: uuid

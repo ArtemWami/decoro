@@ -1,0 +1,67 @@
+paths:
+  /api/v1.0/change-emails/confirmation:
+    post:
+      tags:
+        - v1.0 changeEmail
+      summary: Confirm change email
+      description: Confirm change email.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audience:
+                  type: string
+                  enum: [ "client", "admin" ]
+                confirmationKey:
+                  type: string
+                  example: 4e1ae550829b11ec8e0ffde8bb306d4839be6725b5e9416c98073aa6a4a6971e
+              required:
+                - audience
+                - confirmationKey
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.0/change-emails/cancel:
+    post:
+      tags:
+        - v1.0 changeEmail
+      summary: Cancel change email
+      description: Cancel change email.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audience:
+                  type: string
+                  enum: ["client", "admin"]
+                cancelKey:
+                  type: string
+                  example: 32aa44f182af11eca929a91d3f93f4ec81163cbbed9343c79922d64436531c14
+              required:
+                - audience
+                - cancelKey
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true

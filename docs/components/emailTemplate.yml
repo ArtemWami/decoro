@@ -1,0 +1,35 @@
+components:
+  schemas:
+    EmailTemplate:
+      type: object
+      properties:
+        emailTemplateId:
+          type: string
+          format: uuid
+        subject:
+          type: string
+          maxLength: 255
+        deliveryStage:
+          type: string
+          enum: ["Beginning of campaign", "days after beginning of campaign", "Thank you for your selection", "End of campaign email"]
+        daysDelay:
+          type: integer
+          minimum: 1
+          maximum: 365
+          nullable: true
+        template:
+          type: string
+          maxLength: 1000
+        from:
+          type: string
+          maxLength: 255
+          nullable: true
+        isEnabled:
+          type: boolean
+        parentEmailTemplateId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+        - emailTemplateId
+        - subject

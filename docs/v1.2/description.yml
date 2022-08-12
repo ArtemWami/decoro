@@ -1,0 +1,129 @@
+paths:
+  /api/v1.2/description:
+    post:
+      tags:
+        - v1.2 description
+      summary: Description
+      description: Create Description.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: test
+                unitId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    get:
+      tags:
+        - v1.2 description
+      summary: Description
+      description: Create description.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: unitId
+          schema:
+            type: string
+            format: uuid
+          description: description by unit id
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/description/{descriptionId}:
+    patch:
+      tags:
+        - v1.2 description
+      summary: Description
+      description: Update description.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: descriptionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the unit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: test
+                unitId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - v1.2 description
+      summary: Description
+      description: Remove description.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: descriptionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the unit
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

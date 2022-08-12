@@ -1,0 +1,50 @@
+paths:
+  /api/v1.2/company:
+    patch:
+      tags:
+        - v1.2 company
+      summary: Update Company
+      description: Update Company.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                companyName:
+                  type: string
+                  example: very cool company
+                address:
+                  type: string
+                  example: myAddress
+                city:
+                  type: string
+                  example: myCity
+                province:
+                  type: string
+                  example: myProvince
+                postalCode:
+                  type: string
+                  example: 04564085
+                country:
+                  type: string
+                  example: Canada
+                phone:
+                  type: string
+                  example: 0999999999
+                email:
+                  type: string
+                  format: email
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'

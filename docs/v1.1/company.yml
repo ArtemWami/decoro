@@ -1,0 +1,257 @@
+paths:
+  /api/v1.1/company:
+    post:
+      tags:
+        - v1.1 company
+      summary: Create Company
+      description: Create Company.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                companyName:
+                  type: string
+                  example: veeery cool company
+                subdomainName:
+                  type: string
+                  example: excalibur
+                address:
+                  type: string
+                  example: myAddress
+                city:
+                  type: string
+                  example: myCity
+                province:
+                  type: string
+                  example: myProvince
+                postalCode:
+                  type: string
+                  example: 04564085
+                country:
+                  type: string
+                  example: Canada
+                phone:
+                  type: string
+                  example: 0999999999
+                email:
+                  type: string
+                  format: email
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+    get:
+      tags:
+        - v1.1 company
+      summary: Get Companies
+      description: Get Companies.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Company'
+  /api/v1.1/company/{companyId}:
+    get:
+      tags:
+        - v1.1 company
+      summary: Get Company
+      description: Get Company.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: companyId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the company
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+    patch:
+      tags:
+        - v1.1 company
+      summary: Update Company
+      description: Update Company.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: companyId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                companyName:
+                  type: string
+                  example: veeery cool company
+                address:
+                  type: string
+                  example: myAddress
+                city:
+                  type: string
+                  example: myCity
+                province:
+                  type: string
+                  example: myProvince
+                postalCode:
+                  type: string
+                  example: 04564085
+                country:
+                  type: string
+                  example: Canada
+                phone:
+                  type: string
+                  example: 0999999999
+                email:
+                  type: string
+                  example: test@gmail.com
+                status:
+                  type: string
+                  enum: ["ACTIVE","INACTIVE","PENDING","SUSPENDED","DRAFT","BLOCKED"]
+                primaryColor:
+                  type: string
+                  example: 00FF00
+                textColor:
+                  type: string
+                  example: FF0000
+                subdomainName:
+                  type: string
+                  example: newname
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+    delete:
+      tags:
+        - v1.1 company
+      summary: Delete Company
+      description: Delete Company.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: companyId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the Company
+      responses:
+        204:
+          description: No Content
+  /api/v1.1/company/{companyId}/images:
+    post:
+      tags:
+        - v1.1 company images
+      summary: Upload company image
+      description: Upload company image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: companyId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the company
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                type:
+                  type: string
+                  enum: ["LOGO", "ICON", "PAGE"]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyImage"
+  /api/v1.1/company/{companyId}/images/{imageId}:
+    delete:
+      tags:
+        - v1.1 company images
+      summary: Delete company image
+      description: Delete company image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: companyId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the company
+        - in: path
+          name: imageId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the image
+      responses:
+        204:
+          description: No Content

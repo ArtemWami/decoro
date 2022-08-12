@@ -1,0 +1,149 @@
+paths:
+  /api/v1.5/units:
+    get:
+      tags:
+        - v1.5 units
+      summary: Units
+      description: Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: offset
+          example: 0
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          example: 1
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - type: object
+                          properties:
+                            unitNumber:
+                              type: number
+                              maxLength: 255
+                              example: 1
+                            type:
+                              type: string
+                              maxLength: 255
+                              example: LOWER_LEVEL_UNITS
+                            building:
+                              type: object
+                              properties:
+                                unitNumber:
+                                  type: number
+                                  maxLength: 255
+                                  example: 6b7ca151-723e-469f-8990-f998b78ea845
+                                name:
+                                  type: string
+                                  maxLength: 255
+                                  example: Castle
+                                address:
+                                  type: string
+                                  maxLength: 255
+                                  example: Pushkinska 46
+                                city:
+                                  type: string
+                                  maxLength: 255
+                                  example: Kharkiv
+                                province:
+                                  type: string
+                                  maxLength: 255
+                                  example: Kvebec
+                                postalCode:
+                                  type: string
+                                  maxLength: 255
+                                  example: E5TC3G
+                                images:
+                                  type: array
+                                  items:
+                                    allOf:
+                                      - type: object
+                                        properties:
+                                          location:
+                                            type: string
+                                            maxLength: 255
+                                            example: https://public-decoro-img.s3.ca-central-1.amazonaws.com/building/c9804740bdaa11ec955663de4917d14ed2dbff18f2244508a6ae9862ab9d90da.png
+  /api/v1.5/units/{unitId}:
+    get:
+      tags:
+        - v1.5 units
+      summary: Units
+      description: Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: unitId
+          schema:
+            type: string
+          required: true
+          description: ID of the unit
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      cash:
+                        type: number
+                        maxLength: 255
+                        example: 1000
+                      unitId:
+                        type: string
+                        maxLength: 255
+                        example: 3a432774-3c86-40ca-8e7c-5f9a72c31edf
+                      building:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            maxLength: 255
+                            example: Castle
+                      model:
+                        type: object
+                        properties:
+                          modelId:
+                            type: string
+                            maxLength: 255
+                            example: db56793a-2da7-4e29-ad14-708cb687b31c
+                          images:
+                            type: array
+                            items:
+                              allOf:
+                                - type: object
+                                  properties:
+                                    imageId:
+                                      type: string
+                                      maxLength: 255
+                                      example: a66e9f61-de96-46fd-926d-fd5369a33818
+                                    type:
+                                      type: string
+                                      maxLength: 255
+                                      example: FLOOR_PLANS

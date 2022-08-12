@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: Decoro Public REST API
+  description: |
+    # Getting started
+    ## Versioning
+    The v1 API is default stable version.
+    > *WARNING*: Specifying a version is required `/api`.
+  x-logo:
+    url: /assets/images/brand/logo-icon.svg
+x-tagGroups:
+  - name: Main v1.0
+    tags:
+      - v1.0 auth
+      - v1.0 change-emails
+      - v1.0 company
+      - v1.0 identity
+      - v1.0 invite
+      - v1.0 password
+      - v1.1 admin
+      - v1.1 company
+      - v1.1 company images
+      - v1.1 email-templates
+      - v1.1 invite
+      - v1.2 admin
+      - v1.2 buildings
+      - v1.2 building images
+      - v1.2 company
+      - v1.2 description
+      - v1.2 email-templates
+      - v1.2 email-templates images
+      - v1.2 finish-types
+      - v1.2 finish-types images
+      - v1.2 invite
+      - v1.2 model
+      - v1.2 model images
+      - v1.2 options
+      - v1.2 palette
+      - v1.2 palette-locations images
+      - v1.2 room
+      - v1.2 stripe
+      - v1.2 teamMember
+      - v1.2 units
+      - v1.2 units owners
+      - v1.5 units
+tags:
+  - name: health-check
+    x-displayName: Health check
+    description: Endpoint for EC2 health check
+servers:
+  - url: http://localhost:3000
+    description: Localhost client API (development)
+security:
+  - cookieAuth: []
+paths:
+  /health:
+    get:
+      tags:
+        - health-check
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

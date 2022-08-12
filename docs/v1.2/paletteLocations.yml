@@ -1,0 +1,67 @@
+paths:
+  /api/v1.2/palette-locations/{paletteLocationId}/images:
+    post:
+      tags:
+        - v1.2 palette-locations images
+      summary: Create palette location image
+      description: Create palette location image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: paletteLocationId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the palette location
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                type:
+                  type: string
+                  enum: ["COLOR_PALETTE_IMG"]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaletteLocationImage"
+  /api/v1.2/palette-locations/{paletteLocationId}/images/{imageId}:
+    delete:
+      tags:
+        - v1.2 palette-locations images
+      summary: Delete palette location image
+      description: Delete palette location image.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: paletteLocationId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the palette location
+        - in: path
+          name: imageId
+          schema:
+            type: integer
+          required: true
+          description: ID of the image
+      responses:
+        204:
+          description: No Content

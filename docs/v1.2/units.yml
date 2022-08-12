@@ -1,0 +1,355 @@
+paths:
+  /api/v1.2/units:
+    post:
+      tags:
+        - v1.2 units
+      summary: Units
+      description: Create Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unitNumber:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: LOWER_LEVEL_UNITS
+                      value:
+                        type: string
+                        example: 1-4
+                modelId:
+                  type: string
+                  format: uuid
+                buildingId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    get:
+      tags:
+        - v1.2 units
+      summary: Units
+      description: Create Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: query
+          name: buildingId
+          schema:
+            type: string
+            format: uuid
+          description: Building key
+        - in: query
+          name: search
+          schema:
+            type: string
+            example: test
+          description: Search test
+        - in: query
+          name: offset
+          schema:
+            type: string
+            example: 1
+          description: Pagination
+        - in: query
+          name: limit
+          schema:
+            type: string
+            example: 2
+          description: Pagination
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    patch:
+      tags:
+        - v1.2 units
+      summary: Units
+      description: Update Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unitIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                type:
+                  type: string
+                  example: LOWER_LEVEL_UNITS
+                modelId:
+                  type: string
+                  format: uuid
+                cash:
+                  type: number
+                  example: 15.75
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - v1.2 units
+      summary: Units
+      description: Rmove Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unitIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1.2/units/{unitId}:
+    get:
+      tags:
+        - v1.2 units
+      summary: Units
+      description: Get Units.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: unitId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the unit
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/units/{unitId}/owners:
+    post:
+      tags:
+        - v1.2 units owners
+      summary: Create unit owner
+      description: Create unit owner.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: unitId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the unit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                firstName:
+                  type: string
+                  example: Den
+                lastName:
+                  type: string
+                  example: Romanov
+                phone,:
+                  type: string
+                  example: 0999999999
+                unitId:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+    get:
+      tags:
+        - v1.2 units owners
+      summary: Get unit owners
+      description: Get unit owners.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: unitId
+          schema:
+            type: string
+            format: uuid
+          description: Unit key
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    nullable: true
+  /api/v1.2/units/{unitId}/owners/{userId}:
+    patch:
+      tags:
+        - v1.2 units owners
+      summary: Update unit owner
+      description: Update unit owner.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: unitId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: ID of the unit
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+          description: user key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Owner'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Owner'
+    delete:
+      tags:
+        - v1.2 units owners
+      summary: Delete unit owner
+      description: Delete unit owner.
+      parameters:
+        - in: header
+          name: accessToken
+          schema:
+            type: string
+          description: auth token
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+          description: user key
+        - in: path
+          name: unitId
+          schema:
+            type: string
+            format: uuid
+          description: unit key
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: UNIT IS REASSIGNED
+        404:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: ASSIGN US NOT EXIST !!!

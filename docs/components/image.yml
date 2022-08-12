@@ -1,0 +1,32 @@
+components:
+  schemas:
+    Image:
+      type: object
+      properties:
+        imageId:
+          type: string
+          format: uuid
+        key:
+          type: string
+          maxLength: 255
+        location:
+          type: string
+          maxLength: 255
+        size:
+          type: integer
+          minimum: 1
+        companyId:
+          type: string
+          format: uuid
+        subdomainId:
+          type: string
+          format: uuid
+        createdBy:
+          type: string
+          format: uuid
+      required:
+        - imageId
+        - key
+        - location
+        - size
+        - createdBy
